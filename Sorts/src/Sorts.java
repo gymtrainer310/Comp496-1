@@ -7,15 +7,18 @@ public class Sorts
         int cardinality = 1;
         int repetitions = 5;
         int sets = 7;
+        String[] rawOutput = new String[2 + sets * 2];
+        rawOutput[0] = "Mergesort: n, C(n), T(n)";
         System.out.println("Merge Sort, average of " + repetitions + " runs: ");
-        System.out.println("-----------------------------------------------");
+        System.out.println("---------------------------------------");
         System.out.format("%-1s %7s ", "|", "n");
-        System.out.format("%-1s %15s ", "|", "C(n)");
-        System.out.format("%-1s %15s %-1s %n", "|", "T(n)", "|");
-        System.out.println("|---------------------------------------------|");
+        System.out.format("%-1s %11s ", "|", "C(n)");
+        System.out.format("%-1s %11s %-1s %n", "|", "T(n)", "|");
+        System.out.println("|-------------------------------------|");
         for (int i = 0; i < sets; i++) {
 
             long count = 0;
+
             long time = 0;
 
             if(i == (sets - 1))
@@ -46,21 +49,21 @@ public class Sorts
                     System.exit(1);
                 }
             }
-            //Uncomment for comma delimited raw output
-            //System.out.println(cardinality+","+(count/repetitions)+","+(time/repetitions));
+            rawOutput[i+1] = (cardinality+","+(count/repetitions)+","+(time/repetitions));
 
             System.out.format("%-1s %7d ", "|", cardinality);
-            System.out.format("%-1s %15d ", "|", (count/repetitions));
-            System.out.format("%-1s %15d %-1s %n", "|", (time/repetitions), "|");
+            System.out.format("%-1s %11d ", "|", (count/repetitions));
+            System.out.format("%-1s %11d %-1s %n", "|", (time/repetitions), "|");
         }
-        System.out.println("-----------------------------------------------");
+        rawOutput[sets + 1] = "\nInsertion sort: n, C(n), T(n)";
+        System.out.println("---------------------------------------");
         cardinality = 1;
         System.out.println("\n\nInsertion Sort, average of " + repetitions + " runs:");
-        System.out.println("-----------------------------------------------");
+        System.out.println("---------------------------------------");
         System.out.format("%-1s %7s ", "|", "n");
-        System.out.format("%-1s %15s ", "|", "C(n)");
-        System.out.format("%-1s %15s %-1s %n", "|", "T(n)", "|");
-        System.out.println("|---------------------------------------------|");
+        System.out.format("%-1s %11s ", "|", "C(n)");
+        System.out.format("%-1s %11s %-1s %n", "|", "T(n)", "|");
+        System.out.println("|-------------------------------------|");
         for (int i = 0; i < sets; i++) {
 
             long count = 0;
@@ -97,14 +100,22 @@ public class Sorts
                     System.exit(2);
                 }
             }
-            //Uncomment for comma delimited raw output
-            //System.out.println(cardinality+","+(count/repetitions)+","+(time/repetitions));
+            rawOutput[i+ sets + 2] = (cardinality+","+(count/repetitions)+","+(time/repetitions));
 
             System.out.format("%-1s %7d ", "|", cardinality);
-            System.out.format("%-1s %15d ", "|", (count/repetitions));
-            System.out.format("%-1s %15d %-1s %n", "|", (time/repetitions), "|");
+            System.out.format("%-1s %11d ", "|", (count/repetitions));
+            System.out.format("%-1s %11d %-1s %n", "|", (time/repetitions), "|");
         }
-        System.out.println("-----------------------------------------------");
+        System.out.println("---------------------------------------");
+
+        /*
+         * Uncomment the following loop to print comma delimited raw output
+         */
+        //for (int i = 0; i < rawOutput.length; i++) {
+        //    if(i == 0)
+        //       System.out.println("\n");
+        //    System.out.printf(rawOutput[i]+ "\n");
+        //}
     }
     /*--------------Insertion Sort -----------------------*/
     public static long insertionsort( int[] a)
