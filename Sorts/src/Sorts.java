@@ -6,14 +6,16 @@ public class Sorts
         int number_size = 1000000;
         int cardinality = 1;
         int repetitions = 5;
-        int sets = 7;
+        int sets = 4;
         String[] rawOutput = new String[2 + sets * 2];
-        rawOutput[0] = "Mergesort: n, C(n), T(n)";
+        rawOutput[0] = "Mergesort: n, C(n), C(n)/O(n), T(n), T(n)/O(n)";
         System.out.println("Merge Sort, average of " + repetitions + " runs: ");
         System.out.println("---------------------------------------");
         System.out.format("%-1s %7s ", "|", "n");
         System.out.format("%-1s %11s ", "|", "C(n)");
-        System.out.format("%-1s %11s %-1s %n", "|", "T(n)", "|");
+        System.out.format("%-1s %11s ", "|", "C(n)/O(n)");
+        System.out.format("%-1s %11s ", "|", "T(n)");
+        System.out.format("%-1s %11s %1s", "|", "T(n)/O(n)", "|\n");
         System.out.println("|-------------------------------------|");
         for (int i = 0; i < sets; i++) {
 
