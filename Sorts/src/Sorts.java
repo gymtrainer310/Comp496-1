@@ -6,17 +6,15 @@ public class Sorts
         int number_size = 1000000;
         int cardinality = 1;
         int repetitions = 5;
-        int sets = 4;
-        String[] rawOutput = new String[2 + sets * 2];
-        rawOutput[0] = "Mergesort: n, C(n), C(n)/O(n), T(n), T(n)/O(n)";
+        int sets = 7;
         System.out.println("Merge Sort, average of " + repetitions + " runs: ");
-        System.out.println("---------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
         System.out.format("%-1s %7s ", "|", "n");
-        System.out.format("%-1s %11s ", "|", "C(n)");
-        System.out.format("%-1s %11s ", "|", "C(n)/O(n)");
-        System.out.format("%-1s %11s ", "|", "T(n)");
-        System.out.format("%-1s %11s %1s", "|", "T(n)/O(n)", "|\n");
-        System.out.println("|-------------------------------------|");
+        System.out.format("%-1s %15s ", "|", "C(n)");
+        System.out.format("%-1s %15s ", "|", "C(n)/O(n)");
+        System.out.format("%-1s %15s ", "|", "T(n)");
+        System.out.format("%-1s %15s %1s %n", "|", "T(n)/O(n)", "|");
+        System.out.println("-----------------------------------------------------------------------------------");
         for (int i = 0; i < sets; i++) {
 
             long count = 0;
@@ -44,6 +42,7 @@ public class Sorts
                 count += mergesort(nums);
                 end = System.nanoTime();
                 time += end - start;
+
                 if(!isSorted(nums))
                 {
                     System.err.println("Array not sorted!");
@@ -51,21 +50,28 @@ public class Sorts
                     System.exit(1);
                 }
             }
-            rawOutput[i+1] = (cardinality+","+(count/repetitions)+","+(time/repetitions));
+
+            double avgCount     = count/repetitions;
+            double avgTime      = time/repetitions;
+            double countCalc    = avgCount / (cardinality * (Math.log(cardinality)/Math.log(2)));
+            double timeCalc     = avgTime /  (cardinality * (Math.log(cardinality)/Math.log(2)));
 
             System.out.format("%-1s %7d ", "|", cardinality);
-            System.out.format("%-1s %11d ", "|", (count/repetitions));
-            System.out.format("%-1s %11d %-1s %n", "|", (time/repetitions), "|");
+            System.out.format("%-1s %15.2f ", "|", avgCount);
+            System.out.format("%-1s %15.7f ", "|", countCalc);
+            System.out.format("%-1s %15.2f ", "|", avgTime);
+            System.out.format("%-1s %15.7f %1s %n", "|", timeCalc, "|");
         }
-        rawOutput[sets + 1] = "\nInsertion sort: n, C(n), T(n)";
-        System.out.println("---------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
         cardinality = 1;
         System.out.println("\n\nInsertion Sort, average of " + repetitions + " runs:");
-        System.out.println("---------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
         System.out.format("%-1s %7s ", "|", "n");
-        System.out.format("%-1s %11s ", "|", "C(n)");
-        System.out.format("%-1s %11s %-1s %n", "|", "T(n)", "|");
-        System.out.println("|-------------------------------------|");
+        System.out.format("%-1s %15s ", "|", "C(n)");
+        System.out.format("%-1s %15s ", "|", "C(n)/O(n)");
+        System.out.format("%-1s %15s ", "|", "T(n)");
+        System.out.format("%-1s %15s %1s %n", "|", "T(n)/O(n)", "|");
+        System.out.println("-----------------------------------------------------------------------------------");
         for (int i = 0; i < sets; i++) {
 
             long count = 0;
@@ -95,6 +101,7 @@ public class Sorts
                 count += insertionsort(nums);
                 end = System.nanoTime();
                 time += end - start;
+
                 if(!isSorted(nums))
                 {
                     System.err.println("Array not sorted!");
@@ -102,22 +109,19 @@ public class Sorts
                     System.exit(2);
                 }
             }
-            rawOutput[i+ sets + 2] = (cardinality+","+(count/repetitions)+","+(time/repetitions));
+
+            double avgCount     = count/repetitions;
+            double avgTime      = time/repetitions;
+            double countCalc    = avgCount / ((Math.pow(cardinality, 2)));
+            double timeCalc     = avgTime /  ((Math.pow(cardinality, 2)));
 
             System.out.format("%-1s %7d ", "|", cardinality);
-            System.out.format("%-1s %11d ", "|", (count/repetitions));
-            System.out.format("%-1s %11d %-1s %n", "|", (time/repetitions), "|");
+            System.out.format("%-1s %15.2f ", "|", avgCount);
+            System.out.format("%-1s %15.7f ", "|", countCalc);
+            System.out.format("%-1s %15.2f ", "|", avgTime);
+            System.out.format("%-1s %15.7f %1s %n", "|", timeCalc, "|");
         }
-        System.out.println("---------------------------------------");
-
-        /*
-         * Uncomment the following loop to print comma delimited raw output
-         */
-        //for (int i = 0; i < rawOutput.length; i++) {
-        //    if(i == 0)
-        //       System.out.println("\n");
-        //    System.out.printf(rawOutput[i]+ "\n");
-        //}
+        System.out.println("-----------------------------------------------------------------------------------");
     }
     /*--------------Insertion Sort -----------------------*/
     public static long insertionsort( int[] a)
